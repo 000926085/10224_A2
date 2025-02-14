@@ -85,12 +85,16 @@
                             infoWindow.close();
                             infoWindow.setContent(
                                 "<h5>" + this.NAME + "</h5>" +
-                                "<h6>" + art_exhibits[i].ADDRESS + ", " + this.COMMUNITY + ", ON" + "</h6>" +
-                                "<a href=" + art_exhibits[i].WEBSITE + ">Visit our Website</a>"
+                                "<h6>" + address + ", " + this.COMMUNITY + ", ON" + "</h6>" +
+                                "<a href=" + website + ">Visit our Website</a>"
                             );
                             infoWindow.open(map, this);
                         }
 
+                        let address = art_exhibits[i].ADDRESS;
+                        let website = art_exhibits[i].WEBSITE;
+                        new_marker.NAME = art_exhibits[i].NAME;
+                        new_marker.COMMUNITY = art_exhibits[i].COMMUNITY;
                         new_marker.addListener('click', marker_clicked);
                     }
                 }
