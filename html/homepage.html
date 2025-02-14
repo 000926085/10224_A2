@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <meta name="viewport" content="wdith=device-width, initial-scale=1.0">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Assignment #2</title>
 
         <style>
@@ -64,20 +64,20 @@
                                 new_icon = "http://maps.google.com/mapfiles/kml/paddle/grn-blank.png";
                                 break;
                         }
+
+                        const icon_content = document.createElement("img");
+                        icon_content.src = new_icon;
+
+                        new_marker = new google.maps.marker.AdvancedMarkerElement({
+                            map: map,
+                            position: {
+                                lat: art_exhibits[i].LATITUDE,
+                                lng: art_exhibits[i].LONGITUDE
+                            },
+                            title: art_exhibits[i].NAME,
+                            content: icon_content
+                        });
                     }
-
-                    const icon_content = document.createElement("img");
-                    icon_content.src = new_icon;
-
-                    new_marker = new google.maps.marker.AdvancedMarkerElement({
-                        map: map,
-                        position: {
-                            lat: art_exhibits[i].LATITUDE,
-                            lng: art_exhibits[i].LONGITUDE
-                        },
-                        title: art_exhibits[i].NAME,
-                        content: icon_content
-                    });
                 }
 
                 loadMarkers();
