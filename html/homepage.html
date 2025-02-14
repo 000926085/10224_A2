@@ -8,7 +8,8 @@
         <style>
             #map {
                 height: 700px;
-                width: 1400px;
+                width: 90%;
+                margin-inline: auto;
             }
         </style>
 
@@ -43,6 +44,43 @@
                     zoom: 12,
                     mapId: "my_id"
                 });
+
+                function loadMarkers() {
+                    for (i = 0; i < art_exhibits.length; i++) {
+                        switch (art_exhibits[i].COMMUNITY) {
+                            case "Ancaster":
+                                new_icon = "http://maps.google.com/mapfiles/kml/paddle/blu-blank.png";
+                                break;
+
+                            case "Hamilton":
+                                new_icon = "http://maps.google.com/mapfiles/kml/paddle/pink-blank.png";
+                                break;
+
+                            case "Glanbrook":
+                                new_icon = "http://maps.google.com/mapfiles/kml/paddle/ylw-blank.png";
+                                break;
+
+                            case "Stoney Creek":
+                                new_icon = "http://maps.google.com/mapfiles/kml/paddle/grn-blank.png";
+                                break;
+                        }
+                    }
+
+                    const icon_content = document.createElement("img");
+                    icon_content.src = new_icon;
+
+                    new_marker = new google.maps.marker.AdvancedMarkerElement({
+                        map: map,
+                        position: {
+                            lat: art_exhibits[i].LATITUDE,
+                            lng: art_exhibits[i].LONGITUDE
+                        },
+                        title: art_exhibits[i].NAME,
+                        content: icon_content
+                    });
+                }
+
+                loadMarkers();
             }
         </script>
     </body>
