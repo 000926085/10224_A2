@@ -45,6 +45,9 @@
                     mapId: "my_id"
                 });
 
+                // Only one InfoWindow is needed; it is moved around as neccessary.
+                let infoWindow = new google.maps.InfoWindow();
+
                 function loadMarkers() {
                     for (i = 0; i < art_exhibits.length; i++) {
                         switch (art_exhibits[i].COMMUNITY) {
@@ -77,6 +80,18 @@
                             title: art_exhibits[i].NAME,
                             content: icon_content
                         });
+
+                        let marker_clicked = function() {
+                            infoWindow.close();
+                            infoWindow.setContent(
+                                "<h5>" + this.NAME + "</h5>" +
+                                "<h6>" + art_exhibits[i].ADDRESS + ", " + this.COMMUNITY + ", ON" + "</h6>" +
+                                "<a href=" + art_exhibits[i].WEBSITE + ">Visit our Website</a>"
+                            );
+                            infoWindow.open(map, this);
+                        }
+
+                        new_marker.addListener('click', marker_clicked);
                     }
                 }
 
