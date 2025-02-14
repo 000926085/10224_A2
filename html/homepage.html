@@ -36,8 +36,10 @@
 
         <script>
             let map;
+            var markers = [];
 
             function initMap() {
+                // Initialize the map.
                 map = new google.maps.Map(document.getElementById("map"),
                 {
                     center: { lat: 43.2557, lng: -79.8711 },
@@ -50,6 +52,7 @@
 
                 function loadMarkers() {
                     for (i = 0; i < art_exhibits.length; i++) {
+                        // Use the community of an art exhibit to determine the icon to use.
                         switch (art_exhibits[i].COMMUNITY) {
                             case "Ancaster":
                                 new_icon = "http://maps.google.com/mapfiles/kml/paddle/blu-blank.png";
@@ -71,6 +74,7 @@
                         const icon_content = document.createElement("img");
                         icon_content.src = new_icon;
 
+                        // Initialize a marker with the position and title noted in the JS file.
                         new_marker = new google.maps.marker.AdvancedMarkerElement({
                             map: map,
                             position: {
@@ -81,6 +85,10 @@
                             content: icon_content
                         });
 
+                        // Push the marker to the array for future removal.
+                        markers.push(new_marker);
+
+                        // Function for displaying an InfoWindow upon clicking.
                         let marker_clicked = function() {
                             infoWindow.close();
                             infoWindow.setContent(
@@ -99,8 +107,43 @@
                     }
                 }
 
+                function filterMarkers(option) {
+                    // Refresh the markers.
+                    loadMarkers();
+
+                    // Loop through each marker and determine if it should be removed.
+                    for (x = 0; x < markers.length; x++) {
+                        switch(option) {
+                            case "hamilton":
+                                if (markers[x].NAME.search("Museum") == -1) {
+                                    markers[x].position = null;
+                                }
+                                break;
+
+                            case "museums":
+                                if (markers[x].NAME.search("Museum") == -1) {
+                                    markers[x].position = null;
+                                }
+                                break;    
+
+                            case "gallery":
+                                if (markers[x].NAME.search("Gallery") == -1) {
+                                    markers[x].position = null;
+                                }
+                                break;
+                        }
+                    }
+                }
+
+                document.getElementById("hamilton").addEventListener("click", filterMarkers("hamilton"));
+                document.getElementById("museums").addEventListener("click", filterMarkers("museums"));
+                document.getElementById("gallery").addEventListener("click", filterMarkers("gallery"));
                 loadMarkers();
             }
         </script>
+
+        <button type="button" class="btn btn-primary" id="hamilton">Hamilton</button>
+        <button type="button" class="btn btn-primary" id="museums">Museums</button>
+        <button type="button" class="btn btn-primary" id="gallery">Galleries</button>
     </body>
 </html>
