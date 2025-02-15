@@ -81,7 +81,7 @@
         <!-- Temporary -->
         <br><br>
 
-        <button type="button" class="btn btn-success" onclick="addMarker()">Add Custom Marker</button>
+        <button type="button" class="btn btn-success" onclick="createMarker(document.getElementById('location').value, document.getElementById('name').value)">Add Custom Marker</button>
 
         <!-- Temporary -->
         <br><br>
@@ -90,6 +90,8 @@
 
         <!-- Temporary -->
         <br><br><br><br><br><br><br><br><br>
+
+
 
         <script>
             let map;
@@ -124,17 +126,17 @@
                     mapId: "my_id"
                 });
 
-                // Add the markers and handle the InfoWindow
-                loadMarkers();
-
                 // Initialize the geocoder for adding custom markers
                 geocoder = new google.maps.Geocoder();
+
+                // Add the markers and handle the InfoWindow
+                initMarkers();
 
                 // Only one InfoWindow is needed; it is moved around as neccessary.
                 infoWindow = new google.maps.InfoWindow();
             }
 
-            function loadMarkers() {
+            /*function initMarkers() {
                 for (i = 0; i < art_exhibits.length; i++) {
                     // Use the community of an art exhibit to determine the icon to use.
                     switch (art_exhibits[i].COMMUNITY) {
@@ -169,7 +171,7 @@
                         content: icon_content
                     });
 
-                    // Push the marker to the array for future removal.
+                    // Add the newly created marker to the array.
                     markers.push(new_marker);
 
                     // Function for displaying an InfoWindow upon clicking.
@@ -193,8 +195,8 @@
 
             function filterMarkers(option) {
                 // Reload the markers as to restore previously removed markers.
-                loadMarkers();
-
+                initMarkers();
+ 
                 // For each marker, test it against the condition of the button pressed.
                 for (x = 0; x < markers.length; x++) {
                     switch(option) {
@@ -217,21 +219,28 @@
                             break;
                     }
                 }
+            } */
+
+            function initMarkers() {
+                for (i = 0; i < art_exhibits.length; i++) {
+                    let address = (art_exhibits[i].ADDRESS).concat(", ", art_exhibits[i].COMMUNITY, ", ", "ON");
+                    createMarker(address, art_exhibits[i].NAME);
+                }
             }
 
-            function addMarker() {
-                let address = document.getElementById("location").value;
-
+            function createMarker(location, name) {
                 geocoder.geocode({
-                    'address': address
+                    'address': location
                 },  function(results, status) {
-                        if (status == "OK") {
+                        if (status == 'OK') {
                             const icon_content = document.createElement("img");
-                            icon_content.src = "http://maps.google.com/mapfiles/kml/paddle/purple-blank.png";;
+                            icon_content.src = "http://maps.google.com/mapfiles/kml/paddle/purple-blank.png";
 
+                            // Create the marker using the parameter data.
                             var marker = new google.maps.marker.AdvancedMarkerElement({
                                 map: map, 
                                 position: results[0].geometry.location,
+                                title: name,
                                 content: icon_content
                             })
 
@@ -239,26 +248,73 @@
                             let marker_clicked = function() {
                                 infoWindow.close();
                                 infoWindow.setContent(
-                                    "WOAH"
+                                    "<h5>" + name + "</h5>" +
+                                    "<h6>" + location + "</h6>" /*+
+                                    "<a href=" + aaa + ">Visit our Website</a>"*/
                                 );
                                 infoWindow.open(map, this);
                             }
 
+                            // Add the marker to the array and hookup the click listener.
+                            markers.push(marker);
                             marker.addListener('click', marker_clicked);
+                        }
+                        else {
+                            alert('Geocode was unsuccessful: ' + status)
+                        }
+                })  
+            }
 
-                            //markers.push(marker);
+            /* function createMarker(icon, pos, title) {
+                // Initialize a marker with the position and title noted in the JS file.
+                new_marker = new google.maps.marker.AdvancedMarkerElement({
+                    map: map,
+                    position: {
+                        lat: art_exhibits[i].LATITUDE,
+                        lng: art_exhibits[i].LONGITUDE
+                    },
+                    title: art_exhibits[i].NAME,
+                    content: icon_content
+                });
+            } */
+
+            /*function addMarker() {
+                let address = document.getElementById("location").value;
+
+                geocoder.geocode({
+                    'address': address
+                },  function(results, status) {
+                        if (status == "OK") {
+                            const icon_content = document.createElement("img");
+                            icon_content.src = "http://maps.google.com/mapfiles/kml/paddle/purple-blank.png";
+
+                            var marker = new google.maps.marker.AdvancedMarkerElement({
+                                map: map, 
+                                position: results[0].geometry.location,
+                                title: document.getElementById("name").value,
+                                content: icon_content
+                            })
+
+                            // Function for displaying an InfoWindow upon clicking.
+                            let marker_clicked = function() {
+                                infoWindow.close();
+                                infoWindow.setContent(
+                                    "<h5>" + document.getElementById("name").value + "</h5>" +
+                                    "<h6>" + address + "</h6>" +
+                                    "<a href=" + document.getElementById("site").value + ">Visit our Website</a>"
+                                );
+                                infoWindow.open(map, this);
+                            }
+
+                            markers.push(marker);
+                            marker.addListener('click', marker_clicked);
                         }
                         else {
                             alert('Geocode was unsuccessful: ' + status)
                         }
                     }
                 )
-            }
-
-            function getDirections() {
-
-            }
-
+            } */
         </script>
     </body>
 </html>
