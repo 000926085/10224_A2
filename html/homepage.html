@@ -33,9 +33,10 @@
         </header>
 
         <div id="map"></div>
-        <button type="button" class="btn btn-danger" onclick="filterMarkers('hamilton')">Hamilton</button>
-        <button type="button" class="btn btn-primary" onclick="filterMarkers('museums')">Museums</button>
-        <button type="button" class="btn btn-success" onclick="filterMarkers('gallery')">Galleries</button>
+        <button type="button" class="btn btn-primary" onclick="filterMarkers('History')">History</button>
+        <button type="button" class="btn btn-danger" onclick="filterMarkers('Cafe')">Cafe</button>
+        <button type="button" class="btn btn-warning" onclick="filterMarkers('Gallery')">Gallery</button>
+        <button type="button" class="btn btn-success" onclick="filterMarkers('Museum')">Museum</button>
 
         <div class="container-fluid">
             <div class="row">
@@ -67,12 +68,12 @@
                     <input type="text" class="form-control" id="site">
                 </div>
                 <div class="col-3">
-                    <label for="site">Category</label>
-                    <select id="site" class="form-control" name="site">
+                    <label for="category">Category</label>
+                    <select id="category" class="form-control" name="category">
                         <option selected>Select a category</option>
-                        <option value="hamilton">Hamilton</option>
-                        <option value="museum">Museum</option>
-                        <option value="gallery">Gallerie</option>
+                        <option value="Museum">Museum</option>
+                        <option value="Gallery">Gallery</option>
+                        <option value="Cafe">Cafe</option>
                     </select>
                 </div>
             </div>
@@ -81,7 +82,7 @@
         <!-- Temporary -->
         <br><br>
 
-        <button type="button" class="btn btn-success" onclick="createMarker(document.getElementById('location').value, document.getElementById('name').value)">Add Custom Marker</button>
+        <button type="button" class="btn btn-success" onclick="createMarker(document.getElementById('location').value, document.getElementById('name').value, document.getElementById('category').value)">Add Custom Marker</button>
 
         <!-- Temporary -->
         <br><br>
@@ -224,17 +225,33 @@
             function initMarkers() {
                 for (i = 0; i < art_exhibits.length; i++) {
                     let address = (art_exhibits[i].ADDRESS).concat(", ", art_exhibits[i].COMMUNITY, ", ", "ON");
-                    createMarker(address, art_exhibits[i].NAME);
+                    createMarker(address, art_exhibits[i].NAME, art_exhibits[i].TYPE);
                 }
             }
 
-            function createMarker(location, name) {
+            function createMarker(location, name, category) {
                 geocoder.geocode({
                     'address': location
                 },  function(results, status) {
                         if (status == 'OK') {
+                            // Use the category of the establishment to select a paddle colour.
+                            switch(category) {
+                                case "Gallery":
+                                    new_icon = "http://maps.google.com/mapfiles/kml/paddle/ylw-blank.png";
+                                    break;
+                                case "History":
+                                    new_icon = "http://maps.google.com/mapfiles/kml/paddle/blu-blank.png";
+                                    break;
+                                case "Cafe":
+                                    new_icon = "http://maps.google.com/mapfiles/kml/paddle/pink-blank.png";
+                                    break;
+                                case "Museum":
+                                    new_icon = "http://maps.google.com/mapfiles/kml/paddle/grn-blank.png";
+                                    break;
+                            }
+
                             const icon_content = document.createElement("img");
-                            icon_content.src = "http://maps.google.com/mapfiles/kml/paddle/purple-blank.png";
+                            icon_content.src = new_icon;
 
                             // Create the marker using the parameter data.
                             var marker = new google.maps.marker.AdvancedMarkerElement({
@@ -243,6 +260,7 @@
                                 title: name,
                                 content: icon_content
                             })
+                            marker['type'] = category;
 
                             // Function for displaying an InfoWindow upon clicking.
                             let marker_clicked = function() {
@@ -263,6 +281,52 @@
                             alert('Geocode was unsuccessful: ' + status)
                         }
                 })  
+            }
+
+            /*
+            // Sets the map on all markers in the array.
+            function setMapOnAll(map) {
+            for (let i = 0; i < markers.length; i++) {
+                    markers[i].setMap(map);
+                }
+            }
+
+            // Removes the markers from the map, but keeps them in the array.
+            function filterMarkers(option) {
+                switch(option) {
+
+                }
+                setMapOnAll(null);
+            } */
+
+            function filterMarkers(option) {
+                for (let i = 0; i < markers.length; i++) {
+                    switch(option) {
+                        case "History":
+                            if (markers[i].type != "History") {
+                                markers[i].setMap(null);
+                            }
+                            break;
+
+                        case "Museum":
+                            if (markers[i].type != "Museum") {
+                                markers[i].setMap(null);
+                            }
+                            break;
+
+                        case "Gallery":
+                            if (markers[i].type != "Gallery") {
+                                markers[i].setMap(null);
+                            }
+                            break;
+
+                        case "Cafe":
+                            if (markers[i].type != "Cafe") {
+                                markers[i].setMap(null);
+                            }
+                            break;
+                    }
+                }
             }
 
             /* function createMarker(icon, pos, title) {

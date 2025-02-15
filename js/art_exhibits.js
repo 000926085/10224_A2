@@ -8,7 +8,8 @@ const art_exhibits = [
         "COMMUNITY": "Ancaster",
         "WEBSITE": "https://www.hamilton.ca/attractions/hamilton-civic-museums/griffin-house-national-historic-site",
         "LATITUDE": 43.235429,
-        "LONGITUDE": -80.002734
+        "LONGITUDE": -80.002734,
+        "TYPE": "History"
     },
     {
         "X": 582829.9091,
@@ -19,7 +20,8 @@ const art_exhibits = [
         "COMMUNITY": "Ancaster",
         "WEBSITE": "https://www.hamilton.ca/attractions/hamilton-civic-museums/fieldcote-memorial-park-museum",
         "LATITUDE": 43.226397,
-        "LONGITUDE": -79.979885
+        "LONGITUDE": -79.979885,
+        "TYPE": "Museum"
     },
     {
         "X": 587378.6319,
@@ -30,7 +32,8 @@ const art_exhibits = [
         "COMMUNITY": "Glanbrook",
         "WEBSITE": "https://www.warplane.com/",
         "LATITUDE": 43.159947,
-        "LONGITUDE": -79.924899
+        "LONGITUDE": -79.924899,
+        "TYPE": "Museum"
     },
     {
         "X": 590509.3629,
@@ -41,7 +44,8 @@ const art_exhibits = [
         "COMMUNITY": "Hamilton",
         "WEBSITE": "https://www.hamilton.ca/attractions/hamilton-civic-museums/hamilton-military-museum",
         "LATITUDE": 43.268528,
-        "LONGITUDE": -79.885009
+        "LONGITUDE": -79.885009,
+        "TYPE": "Museum"
     },
     {
         "X": 591524.2442,
@@ -52,7 +56,8 @@ const art_exhibits = [
         "COMMUNITY": "Hamilton",
         "WEBSITE": "https://www.artgalleryofhamilton.com/",
         "LATITUDE": 43.257328,
-        "LONGITUDE": -79.872378
+        "LONGITUDE": -79.872378,
+        "TYPE": "Gallery"
     },
     {
         "X": 594874.9934,
@@ -63,7 +68,8 @@ const art_exhibits = [
         "COMMUNITY": "Hamilton",
         "WEBSITE": "https://www.cfhof.ca/",
         "LATITUDE": 43.251930,
-        "LONGITUDE": -79.830205
+        "LONGITUDE": -79.830205,
+        "TYPE": "Museum"
     },
     {
         "X": 591559.9018,
@@ -74,7 +80,8 @@ const art_exhibits = [
         "COMMUNITY": "Hamilton",
         "WEBSITE": "https://www.hamilton.ca/attractions/hamilton-civic-museums/whitehern-historic-house-garden-national-historic-site",
         "LATITUDE": 43.254780,
-        "LONGITUDE": -79.871947
+        "LONGITUDE": -79.871947,
+        "TYPE": "History"
     },
     {
         "X": 595332.662,
@@ -85,7 +92,8 @@ const art_exhibits = [
         "COMMUNITY": "Hamilton",
         "WEBSITE": "https://www.hamilton.ca/attractions/hamilton-civic-museums/hamilton-childrens-museum",
         "LATITUDE": 43.243825,
-        "LONGITUDE": -79.825312
+        "LONGITUDE": -79.825312,
+        "TYPE": "Museum"
     },
     {
         "X": 599675.6205,
@@ -96,7 +104,8 @@ const art_exhibits = [
         "COMMUNITY": "Hamilton",
         "WEBSITE": "https://www.hamilton.ca/attractions/hamilton-civic-museums/hamilton-museum-steam-technology-national-historic-site",
         "LATITUDE": 43.256604,
-        "LONGITUDE": -79.772090
+        "LONGITUDE": -79.772090,
+        "TYPE": "History"
     },
     {
         "X": 600218.2827,
@@ -107,7 +116,8 @@ const art_exhibits = [
         "COMMUNITY": "Hamilton",
         "WEBSITE": "https://www.hamilton.ca/attractions/hamilton-civic-museums/battlefield-house-museum-park-national-historic-site",
         "LATITUDE": 43.257023,
-        "LONGITUDE": -79.870342
+        "LONGITUDE": -79.870342,
+        "TYPE": "History"
     },
     {
         "X": 603795.7216,
@@ -118,7 +128,8 @@ const art_exhibits = [
         "COMMUNITY": "Stoney Creek",
         "WEBSITE": "https://fwio.on.ca/erland",
         "LATITUDE": 43.206764,
-        "LONGITUDE": -79.722281
+        "LONGITUDE": -79.722281,
+        "TYPE": "Museum"
     },
     {
         "OBJECTID": 12,
@@ -127,7 +138,8 @@ const art_exhibits = [
         "COMMUNITY": "Hamilton",
         "WEBSITE": "https://www.earlscourtgallery.ca/",
         "LATITUDE": 43.248553,
-        "LONGITUDE": -79.817679
+        "LONGITUDE": -79.817679,
+        "TYPE": "Gallery"
     },
     {
         "OBJECTID": 13,
@@ -136,7 +148,8 @@ const art_exhibits = [
         "COMMUNITY": "Hamilton",
         "WEBSITE": "https://crownandpress.com/",
         "LATITUDE": 43.250668,
-        "LONGITUDE": -79.816811
+        "LONGITUDE": -79.816811,
+        "TYPE": "Cafe"
     },
     {
         "OBJECTID": 14,
@@ -145,7 +158,8 @@ const art_exhibits = [
         "COMMUNITY": "Hamilton",
         "WEBSITE": "https://www.theinc.ca/",
         "LATITUDE": 43.260889,
-        "LONGITUDE": -79.867416
+        "LONGITUDE": -79.867416,
+        "TYPE": "Gallery"
     },
     {
         "OBJECTID": 15,
@@ -154,7 +168,9 @@ const art_exhibits = [
         "COMMUNITY": "Stoney Creek",
         "WEBSITE": "https://www.joshtiessen.com/",
         "LATITUDE": 43.217293,
-        "LONGITUDE": -79.746830
+        "LONGITUDE": -79.746830,
+        "TYPE": "Gallery"
+        
     },
     {
         "OBJECTID": 16,
@@ -163,6 +179,15 @@ const art_exhibits = [
         "COMMUNITY": "Ancaster",
         "WEBSITE": "https://creations-gallery.com/",
         "LATITUDE": 43.229687,
-        "LONGITUDE": -79.974379
+        "LONGITUDE": -79.974379,
+        "TYPE": "Gallery"
+    },
+    {
+        "OBJECTID": 17,
+        "NAME": "Redchurch Cafe + Gallery",
+        "ADDRESS": "68 King Street East",
+        "COMMUNITY": "Hamilton",
+        "WEBSITE": "https://www.redchurchcafe.com/",
+        "TYPE": "Cafe"
     }
 ]
