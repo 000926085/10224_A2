@@ -33,13 +33,39 @@
         </header>
 
         <div id="map"></div>
-        <button type="button" class="btn btn-primary" onclick="filterMarkers('hamilton')">Hamilton</button>
+        <button type="button" class="btn btn-danger" onclick="filterMarkers('hamilton')">Hamilton</button>
         <button type="button" class="btn btn-primary" onclick="filterMarkers('museums')">Museums</button>
-        <button type="button" class="btn btn-primary" onclick="filterMarkers('gallery')">Galleries</button>
+        <button type="button" class="btn btn-success" onclick="filterMarkers('gallery')">Galleries</button>
+
+        <div class="container-fluid">
+            <div class="row">
+                <button id="geolocate">Geolocate</button><br>
+            </div>
+        </div>
 
         <script>
             let map;
             var markers = [];
+
+            $(document).ready(function() {
+                function showPosition(position) {
+                    let location = {lat: position.coords.latitude, lng: position.coords.longitude};
+
+                    position_marker = new google.maps.marker.AdvancedMarkerElement({
+                        map: map,
+                        position: location,
+                        title: "Your Location"
+                    })
+                }
+
+                function getLocation() {
+                    if (navigator.geolocation) {
+                        navigator.geolocation.getCurrentPosition(showPosition)
+                    }
+                }
+
+                document.getElementById("geolocate").onclick = getLocation;
+            })
 
             function loadMarkers() {
                 // Only one InfoWindow is needed; it is moved around as neccessary.
@@ -118,6 +144,7 @@
                 // Reload the markers as to restore previously removed markers.
                 loadMarkers();
 
+                // For each marker, test it against the condition of the button pressed.
                 for (x = 0; x < markers.length; x++) {
                     switch(option) {
                         case "hamilton":
