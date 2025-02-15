@@ -43,6 +43,54 @@
             </div>
         </div>
 
+        <!-- Temporary -->
+        <br><br><br>
+
+        <form>
+            <div class="row">
+                <div class="col-3">
+                    <label for="name">Establishment</label>
+                    <input type="text" class="form-control" id="name">
+                </div>
+                <div class="col-3">
+                    <label for="location">Location</label>
+                    <input type="text" class="form-control" id="location">
+                </div>
+            </div>
+
+            <!-- Temporary -->
+            <br>
+
+            <div class="row">
+                <div class="col-3">
+                    <label for="site">Website</label>
+                    <input type="text" class="form-control" id="site">
+                </div>
+                <div class="col-3">
+                    <label for="site">Category</label>
+                    <select id="site" class="form-control" name="site">
+                        <option selected>Select a category</option>
+                        <option value="hamilton">Hamilton</option>
+                        <option value="museum">Museum</option>
+                        <option value="gallery">Gallerie</option>
+                    </select>
+                </div>
+            </div>
+        </form>
+
+        <!-- Temporary -->
+        <br><br>
+
+        <button type="button" class="btn btn-success" onclick="testFunc()">Add Custom Marker</button>
+
+        <!-- Temporary -->
+        <br><br>
+
+        <p id="demo"></p>
+
+        <!-- Temporary -->
+        <br><br><br><br><br><br><br><br><br>
+
         <script>
             let map;
             var markers = [];
@@ -138,6 +186,8 @@
 
                 // Add the markers and handle the InfoWindow
                 loadMarkers();
+
+                geocoder = new google.maps.Geocoder();
             }
 
             function filterMarkers(option) {
@@ -167,6 +217,39 @@
                     }
                 }
             }
+
+            function addMarker() {
+                new_marker = new google.maps.marker.AdvancedMarkerElement({
+                    map: map,
+                    position: {
+                        lat: art_exhibits[i].LATITUDE,
+                        lng: art_exhibits[i].LONGITUDE
+                    },
+                    title: art_exhibits[i].NAME,
+                    content: icon_content
+                });
+            }
+
+            function testFunc() {
+                let address = document.getElementById("location").value;
+
+                geocoder.geocode({
+                    'address': address
+                },  function(results, status) {
+                        if (status == "OK") {
+                            var marker = new google.maps.marker.AdvancedMarkerElement({
+                                map: map, 
+                                position: results[0].geometry.location,
+                                content: "http://maps.google.com/mapfiles/kml/paddle/purple-blank.png";
+                            })
+                        }
+                        else {
+                            alert('Geocode was unsuccessful: ' + status)
+                        }
+                    }
+                )
+            }
+
         </script>
     </body>
 </html>
