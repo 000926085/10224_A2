@@ -81,7 +81,7 @@
         <!-- Temporary -->
         <br><br>
 
-        <button type="button" class="btn btn-success" onclick="testFunc()">Add Custom Marker</button>
+        <button type="button" class="btn btn-success" onclick="addMarker()">Add Custom Marker</button>
 
         <!-- Temporary -->
         <br><br>
@@ -187,6 +187,7 @@
                 // Add the markers and handle the InfoWindow
                 loadMarkers();
 
+                // Initialize the geocoder for adding custom markers
                 geocoder = new google.maps.Geocoder();
             }
 
@@ -219,28 +220,19 @@
             }
 
             function addMarker() {
-                new_marker = new google.maps.marker.AdvancedMarkerElement({
-                    map: map,
-                    position: {
-                        lat: art_exhibits[i].LATITUDE,
-                        lng: art_exhibits[i].LONGITUDE
-                    },
-                    title: art_exhibits[i].NAME,
-                    content: icon_content
-                });
-            }
-
-            function testFunc() {
                 let address = document.getElementById("location").value;
 
                 geocoder.geocode({
                     'address': address
                 },  function(results, status) {
                         if (status == "OK") {
+                            const icon_content = document.createElement("img");
+                            icon_content.src = "http://maps.google.com/mapfiles/kml/paddle/purple-blank.png";;
+
                             var marker = new google.maps.marker.AdvancedMarkerElement({
                                 map: map, 
                                 position: results[0].geometry.location,
-                                content: "http://maps.google.com/mapfiles/kml/paddle/purple-blank.png";
+                                content: icon_content
                             })
                         }
                         else {
@@ -249,6 +241,7 @@
                     }
                 )
             }
+
 
         </script>
     </body>
