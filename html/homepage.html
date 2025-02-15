@@ -115,10 +115,26 @@
                 document.getElementById("geolocate").onclick = getLocation;
             })
 
-            function loadMarkers() {
-                // Only one InfoWindow is needed; it is moved around as neccessary.
-                let infoWindow = new google.maps.InfoWindow();
+            function initMap() {
+                // Initialize the map.
+                map = new google.maps.Map(document.getElementById("map"),
+                {
+                    center: { lat: 43.2557, lng: -79.8711 },
+                    zoom: 12,
+                    mapId: "my_id"
+                });
 
+                // Add the markers and handle the InfoWindow
+                loadMarkers();
+
+                // Initialize the geocoder for adding custom markers
+                geocoder = new google.maps.Geocoder();
+
+                // Only one InfoWindow is needed; it is moved around as neccessary.
+                infoWindow = new google.maps.InfoWindow();
+            }
+
+            function loadMarkers() {
                 for (i = 0; i < art_exhibits.length; i++) {
                     // Use the community of an art exhibit to determine the icon to use.
                     switch (art_exhibits[i].COMMUNITY) {
@@ -175,22 +191,6 @@
                 }
             }
 
-            function initMap() {
-                // Initialize the map.
-                map = new google.maps.Map(document.getElementById("map"),
-                {
-                    center: { lat: 43.2557, lng: -79.8711 },
-                    zoom: 12,
-                    mapId: "my_id"
-                });
-
-                // Add the markers and handle the InfoWindow
-                loadMarkers();
-
-                // Initialize the geocoder for adding custom markers
-                geocoder = new google.maps.Geocoder();
-            }
-
             function filterMarkers(option) {
                 // Reload the markers as to restore previously removed markers.
                 loadMarkers();
@@ -234,6 +234,19 @@
                                 position: results[0].geometry.location,
                                 content: icon_content
                             })
+
+                            // Function for displaying an InfoWindow upon clicking.
+                            let marker_clicked = function() {
+                                infoWindow.close();
+                                infoWindow.setContent(
+                                    "WOAH"
+                                );
+                                infoWindow.open(map, this);
+                            }
+
+                            marker.addListener('click', marker_clicked);
+
+                            //markers.push(marker);
                         }
                         else {
                             alert('Geocode was unsuccessful: ' + status)
@@ -242,6 +255,9 @@
                 )
             }
 
+            function getDirections() {
+
+            }
 
         </script>
     </body>
