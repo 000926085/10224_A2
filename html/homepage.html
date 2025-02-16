@@ -10,10 +10,15 @@
                 height: 700px;
                 width: 100%;
                 margin-inline: auto;
+                margin-bottom: 5px;
             }
 
             .btn {
                 margin-top: 10px;
+            }
+
+            .pad {
+                margin-bottom: 15px;
             }
         </style>
 
@@ -26,12 +31,7 @@
         <header>
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-8">
-                        <h1 class="display-4">Art Exhibits of the Hamilton Region</h1>
-                    </div>
-                    <div class="col-4">
-                        <h1 class="display-4">Landon Kushneryk, 2025</h1>
-                    </div>
+                    <h1 class="display-4">Art Exhibits of the Hamilton Region</h1>
                 </div>
             </div>
         </header>
@@ -40,7 +40,10 @@
 
         <div class="container-fluid">
             <div class="row">
-                <div class="col-sm">
+                <div class="col-md pad">
+                    <div class="row mx-auto">
+                        <h2>Marker Filters</h2>
+                    </div>
                     <div class="row">
                         <div class="col-6">
                             <button type="button" class="btn btn-primary btn-block" onclick="filterMarkers('History')">History</button>
@@ -57,125 +60,80 @@
                             <button type="button" class="btn btn-success btn-block" onclick="filterMarkers('Museum')">Museum</button>
                         </div>
                     </div>
-                    <div class="row col-8">
+                    <div class="row mx-auto">
                         <button type="button" class="btn btn-dark btn-block" onclick="filterMarkers('Restore')">Restore</button>
                     </div>
-                    <div class="row col-8">
+                    <div class="row mx-auto">
                         <button type="button" class="btn btn-info btn-block" id="geolocate">Geolocate</button>
                     </div>
                 </div>
 
-                <div class="col-sm" style="background-color: green";>
-                    One of three columns
+                <div class="col-md pad">
+                    <h2>Add Custom Marker</h2>
+                    <form>
+                        <div class="row">
+                            <div class="col-6">
+                                <label for="name">Establishment</label>
+                                <input type="text" class="form-control" id="name">
+                            </div>
+                            <div class="col-6">
+                                <label for="location">Location</label>
+                                <input type="text" class="form-control" id="location">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <label for="site">Website</label>
+                                <input type="text" class="form-control" id="site">
+                            </div>
+                            <div class="col-6">
+                                <label for="category">Category</label>
+                                <select id="category" class="form-control" name="category">
+                                    <option selected>Select a category</option>
+                                    <option value="Museum">Museum</option>
+                                    <option value="Gallery">Gallery</option>
+                                    <option value="Cafe">Cafe</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row mx-auto">
+                            <button type="button" class="btn btn-dark btn-block" onclick="createMarker(document.getElementById('location').value, document.getElementById('name').value, document.getElementById('category').value, document.getElementById('site').value)">Add Custom Marker</button>
+                        </div>
+                    </form>
                 </div>
 
-                <div class="col-sm" style="background-color: orange";>
-                    One of three columns
+                <div class="col-md pad">
+                    <h2>Directions</h2>
+                    <form>
+                        <div class="row mx-auto">
+                            <label for="origin">Origin</label>
+                            <select class="form-control" id="origin">
+                                <!-- Filled with addresses via JQuery -->
+                            </select>
+                        </div>
+                        <div class="row mx-auto">
+                            <label for="destination">Destination</label>
+                            <select class="form-control" id="destination">
+                                <!-- Filled with addresses via JQuery -->
+                            </select>
+                        </div>
+                        <div class="row mx-auto">
+                            <button type="button" class="btn btn-dark btn-block" onclick="getDirections(document.getElementById('origin').value, document.getElementById('destination').value)">Directions</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
 
-        <!-- <div class="container-fluid">
-            <div class="row">
-                <div class="col-sm">
-                    <div class="row">
-                        <button type="button" class="btn btn-primary btn-block" onclick="filterMarkers('History')">History</button>
-                        <button type="button" class="btn btn-danger btn-block" onclick="filterMarkers('Cafe')">Cafe</button>
-                        <button type="button" class="btn btn-warning btn-block" onclick="filterMarkers('Gallery')">Gallery</button>
-                        <button type="button" class="btn btn-success btn-block" onclick="filterMarkers('Museum')">Museum</button>
-                        <button type="button" class="btn btn-dark btn-block" onclick="filterMarkers('Restore')">Restore</button>
-                        <button type="button" class="btn btn-info btn-block" id="geolocate">Geolocate</button>
-                    </div>
-                </div>
+        <div class="container">
+            <footer class="py-4 mx-auto">
+              <h1 class="display-4">Landon Kushneryk, 2025 | COMP-10244</h1>
+            </footer>
+        </div>
 
-                <div class="col-sm" style="background-color: peru";>
-                    <button type="button" class="btn btn-info btn-lg btn-block">Block level button</button>
-                    <button type="button" class="btn btn-info btn-lg btn-block">Block level button</button>
-                </div>
-            </div>
-        </div> -->
-        
-        <!-- <div class="container">
-            <div class="row">
-                <div class="col-sm">
-                    <button type="button" class="btn btn-primary" onclick="filterMarkers('History')">History</button>
-                </div>
-                <div class="col-sm">
-                    <button type="button" class="btn btn-danger" onclick="filterMarkers('Cafe')">Cafe</button>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm">
-                    <button type="button" class="btn btn-warning" onclick="filterMarkers('Gallery')">Gallery</button>
-                </div>
-                <div class="col-sm">
-                    <button type="button" class="btn btn-success" onclick="filterMarkers('Museum')">Museum</button>
-                </div>
-            </div>
-        </div> -->
-
-        <form>
-            <div class="row">
-                <div class="col-3">
-                    <label for="name">Establishment</label>
-                    <input type="text" class="form-control" id="name">
-                </div>
-                <div class="col-3">
-                    <label for="location">Location</label>
-                    <input type="text" class="form-control" id="location">
-                </div>
-            </div>
-
-            <!-- Temporary -->
-            <br>
-
-            <div class="row">
-                <div class="col-3">
-                    <label for="site">Website</label>
-                    <input type="text" class="form-control" id="site">
-                </div>
-                <div class="col-3">
-                    <label for="category">Category</label>
-                    <select id="category" class="form-control" name="category">
-                        <option selected>Select a category</option>
-                        <option value="Museum">Museum</option>
-                        <option value="Gallery">Gallery</option>
-                        <option value="Cafe">Cafe</option>
-                    </select>
-                </div>
-            </div>
-        </form>
-
-        <!-- Temporary -->
-        <br><br>
-
-        <button type="button" class="btn btn-success" onclick="createMarker(document.getElementById('location').value, document.getElementById('name').value, document.getElementById('category').value, document.getElementById('site').value)">Add Custom Marker</button>
-
-        <!-- Temporary -->
-        <br><br>
-
-        <!-- Directions Form -->
-        <form>
-            <div class="row">
-                <div class="col-3">
-                    <label for="origin">Origin</label>
-                    <select class="form-control" id="origin">
-                        <!-- Filled with addresses via JQuery -->
-                    </select>
-                </div>
-                <div class="col-3">
-                    <label for="destination">Destination</label>
-                    <select class="form-control" id="destination">
-                        <!-- Filled with addresses via JQuery -->
-                    </select>
-                </div>
-            </div>
-        </form>
-
-        <!-- Temporary-->
-        <br>
-
-        <button type="button" class="btn btn-dark" onclick="getDirections(document.getElementById('origin').value, document.getElementById('destination').value)">Directions</button>
+        <!-- <footer>
+            <h1 class="display-4">Landon Kushneryk, 2025</h1>
+        </footer> -->
 
         <script>
             let map;            // The google map.
