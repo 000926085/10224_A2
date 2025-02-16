@@ -7,7 +7,7 @@
 
         <style>
             #map {
-                height: 700px;
+                height: 580px;
                 width: 100%;
                 margin-inline: auto;
                 margin-bottom: 5px;
@@ -131,10 +131,6 @@
             </footer>
         </div>
 
-        <!-- <footer>
-            <h1 class="display-4">Landon Kushneryk, 2025</h1>
-        </footer> -->
-
         <script>
             let map;            // The google map.
             var markers = [];   // An array of initialized markers.
@@ -222,10 +218,18 @@
                                 case "Museum":
                                     new_icon = "http://maps.google.com/mapfiles/kml/paddle/grn-blank.png";
                                     break;
+                                default:
+                                    new_icon = "http://maps.google.com/mapfiles/kml/paddle/purple-blank.png";
+                                    break;
                             }
 
                             const icon_content = document.createElement("img");
                             icon_content.src = new_icon;
+
+                            // If a name was not provided, set the name to the marker's position within the array.
+                            if (name === "") {
+                                name = counter.toString();
+                            }
 
                             // Create the marker using the parameter data.
                             var marker = new google.maps.marker.AdvancedMarkerElement({
