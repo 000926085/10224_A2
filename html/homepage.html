@@ -8,8 +8,12 @@
         <style>
             #map {
                 height: 700px;
-                width: 90%;
+                width: 100%;
                 margin-inline: auto;
+            }
+
+            .btn {
+                margin-top: 10px;
             }
         </style>
 
@@ -33,20 +37,82 @@
         </header>
 
         <div id="map"></div>
-        <button type="button" class="btn btn-primary" onclick="filterMarkers('History')">History</button>
-        <button type="button" class="btn btn-danger" onclick="filterMarkers('Cafe')">Cafe</button>
-        <button type="button" class="btn btn-warning" onclick="filterMarkers('Gallery')">Gallery</button>
-        <button type="button" class="btn btn-success" onclick="filterMarkers('Museum')">Museum</button>
-        <button type="button" class="btn btn-dark" onclick="filterMarkers('Restore')">Restore</button>
 
         <div class="container-fluid">
             <div class="row">
-                <button id="geolocate">Geolocate</button><br>
+                <div class="col-sm">
+                    <div class="row">
+                        <div class="col-6">
+                            <button type="button" class="btn btn-primary btn-block" onclick="filterMarkers('History')">History</button>
+                        </div>
+                        <div class="col-6">
+                            <button type="button" class="btn btn-danger btn-block" onclick="filterMarkers('Cafe')">Cafe</button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <button type="button" class="btn btn-warning btn-block" onclick="filterMarkers('Gallery')">Gallery</button>
+                        </div>
+                        <div class="col-6">
+                            <button type="button" class="btn btn-success btn-block" onclick="filterMarkers('Museum')">Museum</button>
+                        </div>
+                    </div>
+                    <div class="row col-8">
+                        <button type="button" class="btn btn-dark btn-block" onclick="filterMarkers('Restore')">Restore</button>
+                    </div>
+                    <div class="row col-8">
+                        <button type="button" class="btn btn-info btn-block" id="geolocate">Geolocate</button>
+                    </div>
+                </div>
+
+                <div class="col-sm" style="background-color: green";>
+                    One of three columns
+                </div>
+
+                <div class="col-sm" style="background-color: orange";>
+                    One of three columns
+                </div>
             </div>
         </div>
 
-        <!-- Temporary -->
-        <br><br><br>
+        <!-- <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm">
+                    <div class="row">
+                        <button type="button" class="btn btn-primary btn-block" onclick="filterMarkers('History')">History</button>
+                        <button type="button" class="btn btn-danger btn-block" onclick="filterMarkers('Cafe')">Cafe</button>
+                        <button type="button" class="btn btn-warning btn-block" onclick="filterMarkers('Gallery')">Gallery</button>
+                        <button type="button" class="btn btn-success btn-block" onclick="filterMarkers('Museum')">Museum</button>
+                        <button type="button" class="btn btn-dark btn-block" onclick="filterMarkers('Restore')">Restore</button>
+                        <button type="button" class="btn btn-info btn-block" id="geolocate">Geolocate</button>
+                    </div>
+                </div>
+
+                <div class="col-sm" style="background-color: peru";>
+                    <button type="button" class="btn btn-info btn-lg btn-block">Block level button</button>
+                    <button type="button" class="btn btn-info btn-lg btn-block">Block level button</button>
+                </div>
+            </div>
+        </div> -->
+        
+        <!-- <div class="container">
+            <div class="row">
+                <div class="col-sm">
+                    <button type="button" class="btn btn-primary" onclick="filterMarkers('History')">History</button>
+                </div>
+                <div class="col-sm">
+                    <button type="button" class="btn btn-danger" onclick="filterMarkers('Cafe')">Cafe</button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm">
+                    <button type="button" class="btn btn-warning" onclick="filterMarkers('Gallery')">Gallery</button>
+                </div>
+                <div class="col-sm">
+                    <button type="button" class="btn btn-success" onclick="filterMarkers('Museum')">Museum</button>
+                </div>
+            </div>
+        </div> -->
 
         <form>
             <div class="row">
@@ -88,11 +154,6 @@
         <!-- Temporary -->
         <br><br>
 
-        <p id="demo"></p>
-
-        <!-- Temporary -->
-        <br><br><br><br><br><br><br><br><br>
-
         <!-- Directions Form -->
         <form>
             <div class="row">
@@ -112,17 +173,14 @@
         </form>
 
         <!-- Temporary-->
-        <br><br>
+        <br>
 
         <button type="button" class="btn btn-dark" onclick="getDirections(document.getElementById('origin').value, document.getElementById('destination').value)">Directions</button>
 
-         <!-- Temporary -->
-         <br><br><br><br><br><br><br><br><br>
-
         <script>
-            let map;
-            var markers = [];
-            var counter = 0;
+            let map;            // The google map.
+            var markers = [];   // An array of initialized markers.
+            var counter = 0;    // Used in tandem with markers[] for directions.
 
             $(document).ready(function() {
                 function showPosition(position) {
@@ -290,6 +348,11 @@
                 }
             }
 
+            /**
+             * Displays the path from the origin to the destination.
+             * org - the origin location
+             * dest - the destination location
+             */
             function getDirections(org, dest) {
                 let request = {
                     origin: markers[org].address,
@@ -297,17 +360,12 @@
                     travelMode: 'DRIVING'
                 }
 
-                console.log(org);
-                console.log(dest);
-
                 directionsService.route(request, function(result, status) {
                     if (status == "OK") {
                         directionsRenderer.setDirections(result)
-                        console.log(result);
                     }
                 })
             }
-
         </script>
     </body>
 </html>
