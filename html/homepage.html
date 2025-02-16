@@ -122,6 +122,7 @@
         <script>
             let map;
             var markers = [];
+            var counter = 0;
 
             $(document).ready(function() {
                 function showPosition(position) {
@@ -166,7 +167,6 @@
                 // Used for calculating directions between markers.
                 directionsService = new google.maps.DirectionsService();
                 directionsRenderer = new google.maps.DirectionsRenderer();
-
                 directionsRenderer.setMap(map);
             }
 
@@ -177,8 +177,6 @@
                 for (i = 0; i < art_exhibits.length; i++) {
                     let address = (art_exhibits[i].ADDRESS).concat(", ", art_exhibits[i].COMMUNITY, ", ", "ON");
                     createMarker(address, art_exhibits[i].NAME, art_exhibits[i].TYPE, art_exhibits[i].WEBSITE);
-                    $('#origin').append("<option value=" + art_exhibits[i].NAME + ">" + art_exhibits[i].NAME + "</option>");
-                    $('#destination').append("<option value=" + art_exhibits[i].NAME + ">" + art_exhibits[i].NAME + "</option>");
                 }
             }
 
@@ -221,6 +219,7 @@
                                 content: icon_content
                             })
                             marker['type'] = category;
+                            marker['address'] = location;
 
                             // Function for displaying an InfoWindow upon clicking.
                             let marker_clicked = function() {
@@ -236,6 +235,13 @@
                             // Add the marker to the array and hookup the click listener.
                             markers.push(marker);
                             marker.addListener('click', marker_clicked);
+
+                            // Add the marker to the list of locations eligible for directions.
+                            $('#origin').append("<option value=" + counter + ">" + name + "</option>");
+                            $('#destination').append("<option value=" + counter + ">" + name + "</option>");
+
+                            // Increment counter for next marker.
+                            counter++;
                         }
                         else {
                             alert('Geocode was unsuccessful: ' + status)
@@ -286,8 +292,8 @@
 
             function getDirections(org, dest) {
                 let request = {
-                    origin: org,
-                    destination: dest,
+                    origin: markers[org].address,
+                    destination: markers[dest].address,
                     travelMode: 'DRIVING'
                 }
 
