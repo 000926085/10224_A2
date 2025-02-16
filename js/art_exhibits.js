@@ -29,7 +29,7 @@ const art_exhibits = [
         "OBJECTID": 3,
         "NAME": "Canadian Warplane Heritage Museum",
         "ADDRESS": "9280 Airport Road",
-        "COMMUNITY": "Glanbrook",
+        "COMMUNITY": "Mount Hope",
         "WEBSITE": "https://www.warplane.com/",
         "LATITUDE": 43.159947,
         "LONGITUDE": -79.924899,
