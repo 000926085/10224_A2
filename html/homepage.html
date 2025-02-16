@@ -139,12 +139,13 @@
             $(document).ready(function() {
                 function showPosition(position) {
                     let location = {lat: position.coords.latitude, lng: position.coords.longitude};
-
-                    position_marker = new google.maps.marker.AdvancedMarkerElement({
-                        map: map,
-                        position: location,
-                        title: "Your Location"
-                    })
+                    
+                    geocoder.geocode({ location: location })
+                        .then((response) => {
+                            if (response.results[0]) {
+                                createMarker(response.results[0].formatted_address, "Your Location", "Home", null);
+                            } 
+                        });
                 }
 
                 function getLocation() {
@@ -218,6 +219,9 @@
                                 case "Museum":
                                     new_icon = "http://maps.google.com/mapfiles/kml/paddle/grn-blank.png";
                                     break;
+                                case "Home":
+                                    new_icon = "https://maps.google.com/mapfiles/kml/paddle/wht-stars.png";
+                                    break;  
                                 default:
                                     new_icon = "http://maps.google.com/mapfiles/kml/paddle/purple-blank.png";
                                     break;
