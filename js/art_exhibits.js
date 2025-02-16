@@ -111,7 +111,7 @@ const art_exhibits = [
         "X": 600218.2827,
         "Y": 4785719.1253,
         "OBJECTID": 10,
-        "NAME": "Hamilton Museum of Steam and Technology National Historic Site",
+        "NAME": "Battlefield House Museum & Park National Historic Site",
         "ADDRESS": "77 King Street West",
         "COMMUNITY": "Hamilton",
         "WEBSITE": "https://www.hamilton.ca/attractions/hamilton-civic-museums/battlefield-house-museum-park-national-historic-site",

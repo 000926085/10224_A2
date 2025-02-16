@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Assignment #2</title>
+        <title>Assignment #2 - Map Application</title>
 
         <style>
             #map {
@@ -83,7 +83,7 @@
         <!-- Temporary -->
         <br><br>
 
-        <button type="button" class="btn btn-success" onclick="createMarker(document.getElementById('location').value, document.getElementById('name').value, document.getElementById('category').value)">Add Custom Marker</button>
+        <button type="button" class="btn btn-success" onclick="createMarker(document.getElementById('location').value, document.getElementById('name').value, document.getElementById('category').value, document.getElementById('site').value)">Add Custom Marker</button>
 
         <!-- Temporary -->
         <br><br>
@@ -92,6 +92,32 @@
 
         <!-- Temporary -->
         <br><br><br><br><br><br><br><br><br>
+
+        <!-- Directions Form -->
+        <form>
+            <div class="row">
+                <div class="col-3">
+                    <label for="origin">Origin</label>
+                    <select class="form-control" id="origin">
+                        <!-- Filled with addresses via JQuery -->
+                    </select>
+                </div>
+                <div class="col-3">
+                    <label for="destination">Destination</label>
+                    <select class="form-control" id="destination">
+                        <!-- Filled with addresses via JQuery -->
+                    </select>
+                </div>
+            </div>
+        </form>
+
+        <!-- Temporary-->
+        <br><br>
+
+        <button type="button" class="btn btn-dark" onclick="getDirections(document.getElementById('origin').value, document.getElementById('destination').value)">Directions</button>
+
+         <!-- Temporary -->
+         <br><br><br><br><br><br><br><br><br>
 
         <script>
             let map;
@@ -136,6 +162,12 @@
 
                 // Only one InfoWindow is needed; it is moved around as neccessary.
                 infoWindow = new google.maps.InfoWindow();
+
+                // Used for calculating directions between markers.
+                directionsService = new google.maps.DirectionsService();
+                directionsRenderer = new google.maps.DirectionsRenderer();
+
+                directionsRenderer.setMap(map);
             }
 
             /**
@@ -144,7 +176,9 @@
             function initMarkers() {
                 for (i = 0; i < art_exhibits.length; i++) {
                     let address = (art_exhibits[i].ADDRESS).concat(", ", art_exhibits[i].COMMUNITY, ", ", "ON");
-                    createMarker(address, art_exhibits[i].NAME, art_exhibits[i].TYPE);
+                    createMarker(address, art_exhibits[i].NAME, art_exhibits[i].TYPE, art_exhibits[i].WEBSITE);
+                    $('#origin').append("<option value=" + art_exhibits[i].NAME + ">" + art_exhibits[i].NAME + "</option>");
+                    $('#destination').append("<option value=" + art_exhibits[i].NAME + ">" + art_exhibits[i].NAME + "</option>");
                 }
             }
 
@@ -153,8 +187,9 @@
              * location: the address of the marker
              * name: the title of the establishment
              * category: the theme of the establishment
+             * website: the website of the establishment
              */ 
-            function createMarker(location, name, category) {
+            function createMarker(location, name, category, website) {
                 geocoder.geocode({
                     'address': location
                 },  function(results, status) {
@@ -192,8 +227,8 @@
                                 infoWindow.close();
                                 infoWindow.setContent(
                                     "<h5>" + name + "</h5>" +
-                                    "<h6>" + location + "</h6>" /*+
-                                    "<a href=" + aaa + ">Visit our Website</a>"*/
+                                    "<h6>" + location + "</h6>" +
+                                    "<a href=" + website + ">Visit our Website</a>"
                                 );
                                 infoWindow.open(map, this);
                             }
@@ -248,6 +283,25 @@
                     }
                 }
             }
+
+            function getDirections(org, dest) {
+                let request = {
+                    origin: org,
+                    destination: dest,
+                    travelMode: 'DRIVING'
+                }
+
+                console.log(org);
+                console.log(dest);
+
+                directionsService.route(request, function(result, status) {
+                    if (status == "OK") {
+                        directionsRenderer.setDirections(result)
+                        console.log(result);
+                    }
+                })
+            }
+
         </script>
     </body>
 </html>
